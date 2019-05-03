@@ -12,7 +12,7 @@ module Mail
       private
 
       def find_part(format)
-        return @email.preview.html if notify?
+        return @email.preview.html.html_safe if notify?
 
         super
       end
