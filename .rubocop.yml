@@ -12,3 +12,7 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+AllCops:
+  Exclude:
+    - 'lib/mail/notify/mailers_controller.rb'
