@@ -8,19 +8,27 @@ RSpec.describe Rails::MailersController, type: :controller do
   let(:notify) { double(:notify) }
   let(:preview) { double(Notifications::Client::TemplatePreview) }
 
-  it 'gets the HTML preview' do
-    expect(Notifications::Client).to receive(:new).with('some-api-key') { notify }
-    expect(notify).to receive(:generate_template_preview).with(
+  before do
+    allow(Notifications::Client).to receive(:new).with('some-api-key') { notify }
+    allow(notify).to receive(:generate_template_preview).with(
       'template-id',
       personalisation: {
         body: "bar\r\n\\\r\n* This\r\n* Is\r\n* A\r\n* List",
         subject: 'Hello there!'
       }
     ) { preview }
-    expect(preview).to receive(:html) { '<p>Some HTML</p>' }
+    allow(preview).to receive(:html) { '<p>Some HTML</p>' }
+  end
 
+  it 'gets the HTML preview' do
     get :preview, params: { path: 'welcome/my_mail', part: 'text/plain' }
 
     expect(response.body).to eq('<p>Some HTML</p>')
+  end
+
+  it 'returns a HTML content type' do
+    get :preview, params: { path: 'welcome/my_mail', part: 'text/plain' }
+
+    expect(response.content_type).to eq('text/html')
   end
 end
