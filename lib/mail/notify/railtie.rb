@@ -8,7 +8,7 @@ module Mail
       end
 
       initializer 'mail-notify.action_controller' do
-        ActiveSupport.on_load(:action_controller) do
+        ActiveSupport.on_load(:action_controller, run_once: true) do
           Rails::MailersController.send(:include, Mail::Notify::MailersController)
         end
       end
