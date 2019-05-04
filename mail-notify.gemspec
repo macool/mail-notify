@@ -30,6 +30,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.63'
 
-  spec.add_dependency 'actionmailer', '~> 5.0'
+  spec.add_dependency 'actionmailer', '~> 4.0'
   spec.add_dependency 'notifications-ruby-client', '~> 2.0'
 end
