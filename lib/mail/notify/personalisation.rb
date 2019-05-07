@@ -6,7 +6,11 @@ module Mail
       def initialize(mail)
         @body = mail.body.raw_source
         @subject = mail.subject
-        @personalisation = mail[:personalisation]&.unparsed_value || {}
+        @personalisation = if mail[:personalisation].present?
+                             mail[:personalisation].unparsed_value || {}
+                           else
+                             {}
+                           end
       end
 
       def to_h
